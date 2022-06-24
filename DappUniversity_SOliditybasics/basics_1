@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+//state variable : variable stored in the blockchain itself
+
+contract Counter {
+    //uint count;
+    
+    /*The work done by the constructor and function getCount
+    can be done by simply declaring the above variable as public*/
+
+    /*constructor(){
+        count = 0;
+    }*/
+    //this sets the value of the counter 0 as soon as the contract is deployed
+
+
+    /*function getCount() public view {         //view makes this read-only and no gas fee is deducted
+        return count;
+    }*/
+    //this reads the value of the variable count and returns it
+
+    uint public count; /*by default the value is set to 0 and 
+    a getter function is called which reads and returns the value*/
+        
+    function incrementCount() public{
+        count++;
+    }
+
+
+}
