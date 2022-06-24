@@ -1,0 +1,59 @@
+*** Will keep modifying ***
+
+
+/*State Variables − Variables whose values are permanently stored in a contract storage. Creating state var creates transactions on blockchain and costs gas.
+Local Variables − Variables whose values are present till function is executing. 
+Global Variables − Special variables exists in the global namespace used to get information about the blockchain. */
+
+/* View functions are read only function and do not modify the state of the block chain (view data on the block chain). 
+Pure functions do not read and do not modify state of the block chain. 
+All the data the pure function is concerned with is either passed in or defined in the functions scope. */
+
+/* https://docs.soliditylang.org/en/v0.8.15/types.html# 
+
+Data types (Value Types : variables whose copy is created to be used elsewhere whenever they are calles as arguments etc.) : 
+uint8 to uint256 in steps of 8. Same for int.
+Strings and Bytes
+Addresses
+Bool
+Enums
+Fixed Point Numbers 
+
+REference Types are the variables whose value is modified when they are used elsewhere (no copy is created) hence they should be
+used carefully : 
+Data Location
+Arrays
+Array Slice
+Structs
+for more info : https://docs.soliditylang.org/en/v0.8.15/types.html#reference-types  */
+
+/* ENUM vs STRUCT
+Enum defines a data type with a predefined set of values i.e. we can only choose from some already given values
+Struct is more flexible : We can define other variables and methods inside struct which can have any value assigned to them 
+
+for ex : 
+   enum FreshJuiceSize{ SMALL, MEDIUM, LARGE }
+   FreshJuiceSize choice;
+   FreshJuiceSize constant defaultChoice = FreshJuiceSize.MEDIUM;
+
+   function setLarge() public {
+      choice = FreshJuiceSize.LARGE;
+
+Here, the variable "choice" of data type FreshJuicesSize can have a value either LARGE SMALL or MEDIUM which is assigned to it
+in the setLarge() Function as LARGE
+
+For struct :
+
+   struct Book { 
+      string title;
+      string author;
+      uint book_id;
+   }
+   Book book;
+
+   function setBook() public {
+      book = Book('Learn Java', 'TP', 1);
+   }
+
+Here, Book is the struct having multiple variables inside it which can be assigned any value as shown in the setBook() function. 
+book is an instance of the Data type Book.*/
