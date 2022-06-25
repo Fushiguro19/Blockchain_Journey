@@ -1,0 +1,57 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+/* NOTES :
+1) owner is set at the deployment. So let's say for exemple the msg.sender who deploys 
+the contract is the address "0xabc...". Your smart contract then registers 
+owner=0xabc.... Next, if someone with the address "0x123..." interacts with the 
+contract and calls the close function, the modifier will see that 
+"0x123..." (the msg.sender) is different from the owner address ("0xabc...") and the 
+transaction will be rejected.
+
+2) The constructor function is executed once when the contract is created and is used 
+to set some state varibales to a certain specified value. A contract can have only one 
+constructor.
+
+3) Constructor can either be public or internal. Once they are executed, then the final
+code/contract is deployed  */
+
+
+
+contract MyContract {
+    //Conditionals / Loops
+    uint[] public numbers = [1,2,3,4,5,6,7,8,9,10,11,12];
+    address public owner;
+
+    /* when a contract is deployed, msg.sender refers to the owner of the contract i.e.
+    the person who deployed it. The below constructor function, whenever the contract
+    is called, initialises the variable owner to the address of the person who 
+    deployed it i.e. the actual owner */
+
+    constructor(){
+        owner = msg.sender;
+    }
+    
+    function countEvenNumbers() public view returns(uint) {
+        uint count = 0;
+        for(uint i = 0; i < numbers.length; i++){
+            if(isEvenNumber(numbers[i])){
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    
+    function isEvenNumber(uint _number) public pure returns(bool) {
+        if(_number % 2 == 0 ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isOwner() public view returns(bool){
+        return(msg.sender == owner); 
+    }/*checks if the current person contacting the contract is the same as the one
+    set initially as the owner in constructor function */
+}
