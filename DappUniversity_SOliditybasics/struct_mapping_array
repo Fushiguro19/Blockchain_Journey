@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract MyContract{
+
+    uint[] public uintArray = [1,2,3]; //dynamic array
+    string[] public stringArray = ["apple", "banana", "carrot"];
+    string[] public values;
+    uint[][] public array2D = [[1,2,3], [4,5,6]]; //an array of arrays
+    //
+
+    function addValue(string memory _value) public {
+        values.push(_value); //adds _value to the end of the array values
+    }
+
+    function valueCount() public view returns(uint) {
+        return values.length; //returns the no of elements in the array values
+    }
+
+    //Mapping
+    //mapping(keytype => valuetype) mapping_name;
+    mapping(uint => string) names;
+    mapping(uint => Book) public books;
+    mapping(address => mapping(uint => Book)) public myBooks; //mapping inside mapping
+    /*this takes in address of the person/contract currently contacting this contract
+    and for ids 1 2 3..... stores info of the title and author from strcut Book */
+    
+    constructor() {
+        names[1] = "Adam";  //this is how to give values to a mapping for keys 1 2 3 ...
+        names[2] = "Bruce";
+        names[3] = "Carl";
+    }
+
+    struct Book{
+        string title;
+        string author;
+    }
+
+    function addBook(uint _id, string memory _title, string memory _author) public {
+        books[_id] = Book(_title, _author);
+    }
+
+    function addMyBook(uint _id, string memory _title, string memory _author) public {
+        myBooks[msg.sender][_id] = Book(_title, _author);
+    } //execute this in remix to understand its functioning
+}
