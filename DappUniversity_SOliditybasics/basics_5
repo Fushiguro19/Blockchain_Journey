@@ -1,0 +1,70 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+//Inheritance, Factory Contract and Interaction
+
+contract Ownable {
+    //All owner related statements writing here
+    address owner;
+    modifier onlyOwner() {
+        require(msg.sender == owner, "must be owner");
+        _;
+    }
+
+    constructor() {
+        //secret = _secret;
+        owner = msg.sender;
+    }
+}
+
+//This contract is created by MyContract contract
+contract SecretVault {
+    
+    string secret;
+
+    constructor(string memory _secret) {
+        secret = _secret;
+    }
+
+    function getSecret() public view returns(string memory){
+        return secret;
+    }
+}
+
+
+
+//is Ownable makes the Ownable contract parent contract which inherits from MyContract
+//also making MyContract the factory : a contract which creates other contracts
+contract MyContract is Ownable{ 
+    //Inheritance, Factories and Interaction
+    //address owner;
+    //string secret; moving this to SecretVault
+
+    /*modifier onlyOwner() {
+        require(msg.sender == owner, "must be owner");
+    }*/
+    
+    address secretVault;
+
+    constructor(string memory _secret){
+        SecretVault _secretVault = new SecretVault(_secret);/*This creates a variable
+        _secretVault of type SecretVault and is assigned a value of a new(ly) created 
+        contract of name SecretVault with a variable passed same as is required in its
+        constructor which is _secret*/
+
+        secretVault = address(_secretVault);/*Since contracts contact via addresses. we
+        assign the address of the newly created instance of SecretVault smartcontract to
+        the varible secretVault. So now we have a local variable _secretVault to access
+        the created contract SecretVault and a variable secretVault to access its address
+        from inside this contract whenever this is contacted.*/
+
+        //owner = msg.sender;
+        super; //This is to consider the parent contract's constructor here as well
+    }
+
+    function getSecret() public view onlyOwner returns(string memory) {
+        return SecretVault(secretVault).getSecret(); 
+        /*accessing getSecret() function
+        for the secretVault addresses's contract */
+    }
+}
