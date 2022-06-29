@@ -1,0 +1,78 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/*A smart contract to book a hotel room by paying the owner of this contract in eth
+or crypto */
+
+contract HotelRoom {
+    address payable public owner; /*address of the owner who created this smart contract
+    to pay him and book a hotel room */
+
+    enum Statuses { Vacant, Occupied} //keeps track of room occupancy
+    Statuses public currentStatus;
+
+    event Occupy(address _occupant, uint _value);
+    /*An event takes in certain parameters and logs them in transaction logs
+    which is stored in the blockchain. Here, the blockchain will have the data of
+    the _occupant address whoever books a room and the value he/she pays.
+    For further understanding visit : https://www.youtube.com/watch?v=nopo9KwwRg4&ab_channel=SmartContractProgrammer
+    The indexed keyword when used in event enables to filter the data based on the 
+    parameter which is indexed for ex address indexed _occupant will let us filter the
+    data by setting up filter based on certain _occupant address */
+
+    /*Modifers modify the functions they are attached to in a certain way depending
+    on the content they have inside them. For ex, here, the require statement will be
+    applied to the function this modifier is attached to*/
+    modifier onlyWhileVacant {
+        /*Require statement to chk whether the room is vacant and if not, display a
+        certain msg. If the require statement returns false then the func is not
+        executed any further */
+        require(currentStatus == Statuses.Vacant, "Currently Occupied!");
+        _; /*this symbol is called "merge wildcard", it merges the body of the 
+        function it is applied to, to the modifier body starting from its position*/
+    }
+
+    modifier costs(uint _amount) {
+        //To check the amount provided by the person
+        require(msg.value >= _amount, "Not enough amount provided!");
+        _;
+    }
+
+    constructor() {
+        owner = payable(msg.sender);
+        currentStatus = Statuses.Vacant;
+    }
+
+    function book() payable public onlyWhileVacant costs(2 ether) { //making func payable so that msg.value and transfer can work
+                        
+        currentStatus = Statuses.Occupied;
+
+        /*using call() func rather than transfer func
+        read : https://blockchain-academy.hs-mittweida.de/courses/solidity-coding-beginners-to-intermediate/lessons/solidity-2-sending-ether-receiving-ether-emitting-events/topic/sending-ether-send-vs-transfer-vs-call/
+        
+        owner.transfer(msg.value);*/
+
+        (bool sent, bytes memory data) = owner.call{value: msg.value}("");
+        require (true); /*if the above cond is false, execution stops which is
+        why we are using call() : it sends the status of the operation whether the
+        eth was sent successfully or not*/
+
+        /*transfer function sends crypto to the recipient
+        which is the owner here. Transfer function is accepted here because we 
+        declared owner variable as payable.
+        msg.sender is the member of the msg object which lets us send transactions on
+        the Ethereum Network. */
+
+        emit Occupy(msg.sender, msg.value);
+    }
+
+}
+
+/*After deploying : 
+1) Click on owner tab to see the current owner and click on currentStatus which will 
+show 0 which is the index of Vacant status in our enum.
+
+2) Then choose another address, select 2 in Value section and ether in the adjacent
+section. Click book and see if the transaction was successful or not.
+
+3) Now check the owner and currentStatus. */
