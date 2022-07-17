@@ -1,0 +1,87 @@
+The blockchain world is separated from the outside/real world. THey cannot get data of the real world on their own. 
+That’s the ORACLE PROBLEM. Hence, here comes the Blockchain Oracles into picture like CHAINLINK. 
+The oracle is any device which interacts with the world outside a blockchain, gathers data and computations and provides it to the blockchain.
+
+Etherscan is like BLockchain Explorer. WE can see the details of any address there, like the funds in it, its transactions etc.
+
+Adding fake money to our metamask wallets using Chainlink faucets.
+
+Mnemonic gives access to all metamask accounts while private key gives access to its corresponding acct only.
+
+Visit https://andersbrownworth.com/blockchain/block to see how hash changes based on block no, nonce and data the block is carrying. 
+So, the miners keep changing the nonce till they achieve a hash starting with 0000.
+
+There’s one more field other than the ones mentioned in the above point known as PREV or previous. It contains the hash of the previous block. 
+It is also considered when forming the hash of the current block. If any data is changed in the previous blocks then all the other blocks will have their 
+hash changed and this will let us know that somewhere change has been made.
+
+All the individual users/nodes will have the same set of blocks arranged in the same pattern. 
+Hence, even if a node tries to change the data in a block and tries to adjust all the next blocks accordingly, the other nodes will know about it.
+
+Visit andersbrownworth.com/blockchain/public-private-keys/keys
+
+As per the Digital Signature Algorithm, the Message Signature forms by the encryption of the combination of Private Key and Message/Data. 
+To Verify that the message is from us , it requires our Public Key and the Message Signature generated earlier.
+
+Hashing the combo of Private and Public key and taking its last 20 bytes gives the address of our account. 
+Same happens when Mnemonic phrase is combined with Account number, it returns the private key. 
+Hence, Public key is derived from private key and address is derived from both of them.
+
+We can set the gas limit in metamask.
+
+Consensys mechanism : Formed of 2 processes (in broad terms otherwise it has many other processes) : Sybil Resistance and Chain Selection Rule.
+
+Proof of work and Proof of Stake are 2 examples of Sybil Resistance. Sybil REsistance is a mechanism in blockchain to defend against a huge number of 
+blocks created by a single node to get max rewards or for some malicious attack. PoW is sybil resistant since a single node has to go through heavy 
+computations and expensive process to create a single node. Similarly, PoS is sybil resistant since each node has its money on stake. Any malicious
+step can result in loss of all the money stakes in creation of multiple blocks.
+
+Block Time : Time between publishing of 2 blocks.
+
+Chain Selection Rule : To know, out of many chains formed in a network, which one is the main blockchain. 
+Bitcoin and Ethereum follow Nakamoto Consensus which is the result of PoW and Longest Chain Rule. 
+The Longest Chain Rule states that whichever chain is the longest / has the most no of blocks in the network will be considered the main chain.
+
+Block Confirmation : Means no of blocks added in the blockchain after the block which had our transaction.
+
+PoW : Miners……………….. PoS : Validators
+
+Sybil Attack : When a user creates a huge no of blocks to alter the blockchain. The other attack is 51% Attack means if someone has more than 51% of the
+blocks in a network then it can fork or bring the rest of the network on its own chain.
+
+In PoS, unlike the mining process where every node is in a race to validate blocks and get rewarded, the nodes are randomly chosen to do the validation and 
+the rest of the nodes verify it.
+
+Read about Randomness.
+
+Scalability : When a large number use a blockchain, the gas prices skyrocket since at a time, there is only limited space in the blockchain and 
+limited no of nodes to validate blocks, limited space in a block to hold transactions. Hence it becomes difficult to use the blockchain once the gas 
+prices become extremely high. To solve this problem, ETH 2.0 has decided to use Sharding. Sharding creates a blockchain of blockchains. 
+There is a main blockchain which controls many other smaller blockchains, hence the traffic is not directed towards one single chain, rather it gets 
+distributed and hence better management. The other solution to scalability is Rollups.
+Layer one: Is the base layer BLockchain implementation like Ethereum, Bitcoin etc… Layer 2 : Is any application built on top of Layer 1 like Chainlink.
+
+Learn about ROLLUPS and SIDECHAINS from the links given in the video.
+
+ While writing SPDX License the colon should be close to identifier and not in the middle of MIT and Identifier as it will not be recognised.
+
+See Solidity Data Types in Solidity Doc
+
+uint256 FavNo is same as uint256 FavNo = 0;  If we don’t initialize the value it is set to 0 by default.
+
+Every contract has an address just like our metamask account
+
+Function Visibility Specifiers : public, private, internal and external.
+
+Variables declared inside a function is inaccessible outside it.
+
+https://docs.soliditylang.org/en/v0.8.13/contracts.html#visibility-and-getters Public state variables have getter functions linked to them.
+
+Whenever keywords pure/view are used, then that part of the code needs no gas to get executed. View allows only to read the state, no modifications 
+allowed. Pure function also disallows any modification, in fact it disallows reading data from the blockchain as well. It only works with its own 
+arguments and data, nothing from the outside.
+
+Learn about Data Types : Value Types, Reference Types, Mapping Types etc…..     https://docs.soliditylang.org/en/v0.8.15/types.html# 
+
+
+
