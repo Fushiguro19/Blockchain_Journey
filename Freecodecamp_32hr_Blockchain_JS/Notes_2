@@ -1,0 +1,5 @@
+Orange tabs in the deploy section of remix is for functions that trigger transactions while the blue ones are for functions that do not modify any data
+on the blockchain(view/pure functions included).
+
+View/pure functions, although do not cost any gas, do cost some gas when used inside functions that trigger transaction/cost gas themselves.
+
