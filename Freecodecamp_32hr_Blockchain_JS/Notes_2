@@ -3,3 +3,16 @@ on the blockchain(view/pure functions included).
 
 View/pure functions, although do not cost any gas, do cost some gas when used inside functions that trigger transaction/cost gas themselves.
 
+Six places where EVM can store or access info from : STACK, MEMORY, STORAGE, CALLDATA, CODE, LOGS
+
+Storage : Analogous to hard drive, stores data between smart contract executions, permanent storge, high gas, multiple adjacent items of less than 32 bytes
+          can be stored in a single storagae slot, Structs and array data always start a new slot and their items are packed tightly according to these rules,
+          Items following struct/array data always start a new storage slot.  
+
+MEMORY : Analogous to RAM, stores value only till function execution, gas consumption insignificant as compared to the storage, 
+         always better to use Memory for intermediate calculations and store the final result in Storage, 4 32-byte slots including endpoints,
+
+1) State variables and Local Variables of structs, array are always stored in storage by default.
+2) Function arguments are in memory.
+3) Whenever a new instance of an array is created using the keyword ‘memory’, a new copy of that variable is created. 
+   Changing the array value of the new instance does not affect the original array.
