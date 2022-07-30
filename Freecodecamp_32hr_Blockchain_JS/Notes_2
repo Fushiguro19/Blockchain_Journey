@@ -10,7 +10,9 @@ Storage : Analogous to hard drive, stores data between smart contract executions
           Items following struct/array data always start a new storage slot.  
 
 MEMORY : Analogous to RAM, stores value only till function execution, gas consumption insignificant as compared to the storage, 
-         always better to use Memory for intermediate calculations and store the final result in Storage, 4 32-byte slots including endpoints,
+         always better to use Memory for intermediate calculations and store the final result in Storage, 4 32-byte slots including endpoints, 
+         
+CALLDATA : temporary like MEMORY except that any variable defined as calldata is non-modifiable, it is a special data location where func args exist
 
 1) State variables and Local Variables of structs, array are always stored in storage by default.
 2) Function arguments are in memory.
