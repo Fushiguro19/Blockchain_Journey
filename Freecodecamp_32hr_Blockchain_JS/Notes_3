@@ -1,3 +1,8 @@
 A contract that creates other contracts :
 https://solidity-by-example.org/new-contract/
 
+To understand interaction between contracts :
+https://docs.soliditylang.org/en/v0.7.3/contracts.html
+https://ethereum.stackexchange.com/questions/36700/call-methods-on-a-contract-already-deployed-from-another-contract
+
+
