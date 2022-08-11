@@ -6,3 +6,13 @@ https://docs.soliditylang.org/en/v0.7.3/contracts.html
 https://ethereum.stackexchange.com/questions/36700/call-methods-on-a-contract-already-deployed-from-another-contract
 
 
+Every transaction has following fields :
+Nonce
+Gas price : Price per unit of gas (in wei)
+Gas limit : Max gas the transaction can use
+To : Address the tx is sent to
+Value : Amount to be sent (wei)
+Data : Data sent to the TO Address
+v,r,s : Parts of tx signature
+
+PAYABLE : This modifier in a function ensures that a certain smart contract can send/receive ether(or any currency).
