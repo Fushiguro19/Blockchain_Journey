@@ -16,3 +16,5 @@ Data : Data sent to the TO Address
 v,r,s : Parts of tx signature
 
 PAYABLE : This modifier in a function ensures that a certain smart contract can send/receive ether(or any currency).
+
+msg.value : Part of msg Object. Is automatically set to the amount of ether sent via payable function
