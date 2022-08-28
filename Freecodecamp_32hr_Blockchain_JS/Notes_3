@@ -18,3 +18,20 @@ v,r,s : Parts of tx signature
 PAYABLE : This modifier in a function ensures that a certain smart contract can send/receive ether(or any currency).
 
 msg.value : Part of msg Object. Is automatically set to the amount of ether sent via payable function
+
+To convert ether to usd is where the decentralised oracle networks(like Chainlink) come into picture. This is because blockchain are deterministic by design i.e.
+they have no idea of anything outside their environment (known as THE ORCALE PROBLEM) hence there is no way they know the relationship between eth and USD. 
+Hence blockchain oracles (CHAINLINK) are devices that interacts with the off-chain world to provide external data to the chain/smart contracts.
+
+VISIT : docs.chain.link
+
+Chainlink is a  modular, decentralised, customizable oracle network that can fetch external data or do computations for our smart contract.
+
+Some of the Chainlink features that are ready to plug n play :
+1) Chainlink Data Feeds : visit data.chain.link
+2) Chainlink VRF (Verifiable Randomness Function) : to generate provably random number. Visit docs.chain.link/ evm chains / generate random number
+3) Chainlink Keepers : Decentralised Event driven execution. Responsible for execution of some pre-registered events like set off the alarm after every 10 mins.
+                       The Chainlink nodes listen for such triggers or check the smart contracts for such triggers. As soon as any trigger returns true, the
+                       Chainlink nodes will perform whatever action they r told to do. Visit docs.chain.link
+
+4)COnnect to any API : Whenever we req data from oracle network nodes, we need to pay some oracle gas or LINK token.
