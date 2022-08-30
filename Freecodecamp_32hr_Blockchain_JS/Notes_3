@@ -35,3 +35,9 @@ Some of the Chainlink features that are ready to plug n play :
                        Chainlink nodes will perform whatever action they r told to do. Visit docs.chain.link
 
 4)COnnect to any API : Whenever we req data from oracle network nodes, we need to pay some oracle gas or LINK token.
+
+Previously we used "import" to use one contract in another, but the other way is to use the ABI.
+ABI is the list of diff funcs that we can interact with from outside the contract.
+We need an Interface to get the ABI. 
+Go to github.com/smartcontractkit/chainlink   ... contracts -> src -> v0.8 -> interfaces -> Aggregatorv3interface.sol
+where we see funcs with no body. On compiling we get the ABI mentioning those funcs we can interact with.
