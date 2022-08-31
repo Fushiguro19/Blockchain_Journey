@@ -1,0 +1,44 @@
+CHAINLINK ARCHITECTURE AND CHAINLINK DATA FEEDS :
+
+Chainlink connects smart contracts to the outside world using DECENTRALISED ORACLE NETWORK.
+DECENTRALISED ORACLE NETWORK : A number of diff oracle nodes are connected together. Data from all the nodes are aggregated together and sent to the smart contract.
+                               All the nodes work in a decentralised way based on some consensus algorithm.
+
+BASIC REQUEST MODEL : When data is requested from a single oracle source, this on-chain architecture is used.
+                      
+Explanation of Basic Request Model : https://docs.chain.link/docs/architecture-request-model/
+1)The Chainlink client is a parent contract with the help of which smart contracts retrieve data from the oracles.
+A call to sendChainlinkRequestTo func initiates a call to transferAndCall func which is implemented by the LINK token.
+
+2) The LINK token is an ERC-677 token which transfers tokens and also triggers logic in the receiving contract.
+Here, it implements the transferAndCall func.
+
+3) The Oracle contracts are on-chain contracts of the off-chain oracle node operators. The off-chain oracle nodes
+get to know if any req is there from these contracts. These contracts emit an OracleRequest event containing info about the req.
+When the req is fulfilled by the off-chain Oracle nodes, it is sent to the Chainlink Client using
+the callback function.
+
+DECENTRALISED DATA MODEL : 
+
+Each data feed (data which we see ETH/USD etc) is updated by multiple oracle operators. Each datafeed
+is built and funded by community of users. Each oracle operator is rewarded for publishing data.
+The data_feed_aggregator contract must receive the data from a min set of operators to update the answer.
+
+Data Feeds, which are an example of decentralized oracle network, have foll cmponents :
+1) A consumer contract : This consumes data from the aggregated data using Chainlink Data Feeds.
+                         Uses AggregatorV3Interface contract and calls one of its funcs.
+
+2) Proxy contract : On-chain Contracts pointing to the aggregator contract of a particular data feed. Proxies r used
+                    in place of the aggregator contract so that if aggregator gets updated then there is no 
+                    interruption in the working of the consumer contracts using it. 
+                    In AggregatorV3Interface(address), the address is of the proxy contract of the data feed being used.
+
+3) Aggregator contract : Contracts receiving updates from the oracle network. Stores aggregated data on-chain
+
+
+OCR : OFF-CHAIN REPORTING
+
+Increases the decentralisation and stability of Chainlink networks.
+All the nodes communicate via peer to peer network. A lightweight consensus algo runs where each node reports its data observation and signs it.
+A single report is formed containing all the aggregation of all the observations. A single node then submits a transaction with the aggregated report to the chain.
+https://docs.chain.link/docs/off-chain-reporting/
