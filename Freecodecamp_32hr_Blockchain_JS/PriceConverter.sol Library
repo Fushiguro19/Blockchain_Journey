@@ -1,0 +1,83 @@
+//WE transfer all the funcs from Fundme.sol to PriceConverter.sol and use PriceConverter.sol as a library in FundMe.sol
+//PriceConverter.sol Library
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+//will be used as a library
+
+//libraries cant have any state variables and cant send any ether
+//all the functions have to be internal
+//starts with the term "library" instead of "contract"
+
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
+library PriceConverter{
+    
+    function getPrice() internal view returns(uint256) {
+        AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
+        /*This means a contract at the address 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e will have all the
+        functionalities of the interface contract. THis is typecasting of address to a contract type.*/
+        (,int256 price,,,)= priceFeed.latestRoundData(); //this function is from the interface contract.
+        //the func returns 5 variables but we need only price. refer the code in docs.chain.link section
+        //this will return price of ETH in terms of USD.
+
+        return uint256(price * 1e10);
+
+        /*since msg.value is in uint256, we converted price to the same(called typecasting). 
+        Also, since 1eth has 18 zeroes in wei and price will have 8 zeroes after decimal , 
+        we provide 10 more zeroes to it */
+    }
+
+    function getVersion() internal view returns(uint256) {
+        AggregatorV3Interface pricefeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
+        return pricefeed.version();
+    }
+
+
+    //func to get eth in terms of USD
+
+    function getConversionRate(uint256 ethAmount) internal view returns(uint256){
+        uint256 ethprice = getPrice();
+        uint256 ethAmountinUSD = (ethprice * ethAmount) / 1e18; //Always multiply before divide
+        return ethAmountinUSD;
+    }
+}
+
+
+
+//FundMe.sol using the library
+
+//SPDX-License-Identifier: MIT
+
+/* 1) Tasks : get(from users)/withdraw funds ; set min funding value 
+in USD
+
+2) Solidity Structs and Arrays */
+
+import "./PriceConverter.sol";
+
+pragma solidity ^0.8.0;
+
+contract FundMe{
+
+    using PriceConverter for uint256; //using the PriceConverter.sol library
+    
+    uint256 public minimumUsd = 50 * 1e18; //1e18 multiplied to ease calculations in terms of wei
+    address[] public funders;
+    mapping(address => uint256) public addToAmtFunded;
+
+    function fund() public payable {
+        
+        //require(msg.value > 1e18, "Didn't send enough"); 
+        /*1e18 = 1*10^18 = 1000000000000000000 wei = 1eth ..... If msg.value <1 then display the msg */
+        
+        //require(getConversionRate(msg.value) >= minimumUsd, "Didn't send enough"); //setting min limit
+        //Now getConversionRate is used on msg.value as a func of the library. "msg.value" acts as an object
+        
+        require((msg.value.getConversionRate()) >= minimumUsd, "Didn't send enough"); //setting min limit
+        funders.push(msg.sender); //the address which calls this fund function is msg.sender
+        addToAmtFunded[msg.sender] = msg.value;
+    }
+
+}
