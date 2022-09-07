@@ -1,1 +1,24 @@
+OVERFLOW, UNDERFLOW and CHECKED keyword
+
+
+Three ways to send ether from a contract :
+
+1) TRANSFER : 
+   CODE :  payable(msg.sender).transfer(address(this).balance);
+    //here we convert msg.sender, which is of address type to payable type. then we apply transfer method on it.
+    address(this) refers to the address of this contract and .balance method gives the total ETh balance
+    in this contract. Overall, we r sending the amount this contract has to the msg.sender address via transfer
+    method//
+    The limitation of transfer method is that it is capped at 2300gas. WHich means if more than 2300 gas is used while sending eth it will throw an error and
+    revert the transaction.
+    
+2) SEND : Here, if 2300 gas is exceeded, then it will return a BOOL.
+         bool sendSuccess = payable(msg.sender).send(address(this).balance);
+         require(sendSuccess, "Send failed");
+         
+         //We store the value of bool in sendSuccess variable but we this won't revert the transaction in case it fails. So we define a require condition, which
+         if returns FALSE, then the transaction will be reverted with a msg "Send failed" , hence reverting our money back otherwise no money revert will happen.//
+         
+         
+3) CALL : This is a powerful func which can be used to call almost any func virtually in all of the etherium without even using ABI.
 
