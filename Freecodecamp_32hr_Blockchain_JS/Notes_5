@@ -1,0 +1,15 @@
+///timestamp : 05:05:41
+///Advanced Solidity Concepts
+
+Constant : Restricted variables which has to be assigned a value where it is declared and should remain the same value throughout. It cannot be modified.
+           Naming convention will be ALL CAPS with UNDERSCORES. WE are setting minimumUSD variable as CONSTANT in the FundMe.sol contract as it is only set once
+           in the whole contract.
+           
+IMMUTABLE : This is a bit lenient than CONSTANT variables. Immutables can be assigned a value after declaring it. You can assign it an arbitrary value either in 
+            constructor or during their declaration. The value assignment can be done only once post which they become read only and cannot be modified.
+            In the FundMe.sol contract, the owner variable is set in the constructor once and is never changed again in the whole code. SO, we change it to 
+            IMMUTABLE variable. Name it as i_owner so that we know its immutable.
+            
+(Note : The compiler does not reserve a storage slot for these variables, they are instead stored in the bytecode of the contract, 
+and every occurrence is replaced by the respective value.)
+
