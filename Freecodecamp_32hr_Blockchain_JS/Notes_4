@@ -21,4 +21,32 @@ Three ways to send ether from a contract :
          
          
 3) CALL : This is a powerful func which can be used to call almost any func virtually in all of the etherium without even using ABI.
+          1) To send ETH :
+          (bool callSuccess) = payable(msg.sender).call{value : address(this).balance}("");
+          require(callSuccess, "Call failed");
+          
+          2) To call other functions :
+          let address of the contract that has the func be funcadda and the func to be called be : function foo(string memory _a, uint _x)
+          CODE : 
+          (bool success, bytes memory returndata) = funcadd.call{value : 111, gas : 5000}(abi.encodeWithSignature("foo(string, uint256)", "CALL" , 123));
+          require(success, "Call failed");
+          success is whether the call passed or failed and returndata is whatever data is returned by the func called.
+          abi.encodeWithSignature is done to encode the func to be called.
+          value is in wei.
+          refer : https://www.youtube.com/watch?v=xIAs2S9aCKo&list=PLO5VPQH6OWdVQwpQfw9rZ67O6Pjfo6q-p&index=44&ab_channel=SmartContractProgrammer
+          
+
+Modifiers : To execute some condition before reading the func body
+            modifier OnlyOwner{
+                require(msg.sender == owner, "msg.sender is not the owner");
+                _;
+            }
+            
+            When this modifer is used in a func say : function foo() public OnlyOwner{
+            func body..........
+            ...........
+            }
+            
+            Then it means that read the modifier first and then the rest of the code. IF the dash i.e. _; comes before the require statement in the modifier
+            then the func code will be read first and then the modifier will be read.
 
