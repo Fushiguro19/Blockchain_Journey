@@ -13,3 +13,5 @@ IMMUTABLE : This is a bit lenient than CONSTANT variables. Immutables can be ass
 (Note : The compiler does not reserve a storage slot for these variables, they are instead stored in the bytecode of the contract, 
 and every occurrence is replaced by the respective value.)
 
+
+CUSTOM ERROR : https://blog.soliditylang.org/2021/04/21/custom-errors/
