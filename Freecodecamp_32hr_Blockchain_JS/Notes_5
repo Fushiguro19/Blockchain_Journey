@@ -21,4 +21,7 @@ RECEIVE and FALLBACK : https://blog.soliditylang.org/2020/03/26/fallback-receive
 For RECEIVE function, even if we send 0ETH , the function will still get triggered iff there is no calldata.
 Although, if there is some calldata involved, then no matter the amount of ETH, function will not get triggered.
 
-Faallback func is triggered when no other func matches the called func or if there is no calldata
+Fallback func is triggered when no other func matches the called func or if there is no calldata.
+
+Chart : Timestamp 5:23:58
+
