@@ -1,0 +1,122 @@
+//With added receive and fallback functions ...... At the bottom , added receive and fallback contract to udnerstand the concept
+
+//SPDX-License-Identifier: MIT
+
+/* 1) Tasks : get(from users)/withdraw funds ; set min funding value 
+in USD
+
+2) Solidity Structs and Arrays */
+
+import "./PriceConverter.sol";
+
+pragma solidity ^0.8.0;
+
+error NotOwner();
+
+contract FundMe{
+
+    using PriceConverter for uint256; //using the PriceConverter.sol library
+    
+    uint256 public constant MINIMUM_USD = 50 * 1e18; //1e18 multiplied to ease calculations in terms of wei
+    //making it a constant variable will lower the gas fee as it does not require storage.
+    address[] public funders;
+    mapping(address => uint256) public addToAmtFunded;
+
+    address public immutable i_owner;
+    
+    //to make the owner of the contract the one who deployed it. ALso, only the owner cn withdraw funds
+    //constructor get executed as soon as the contract is deployed
+
+    constructor(){
+        i_owner = msg.sender; //msg.sender in this statement is the one who deploys the contract
+    }
+
+    function fund() public payable {
+        
+        //require(msg.value > 1e18, "Didn't send enough"); 
+        /*1e18 = 1*10^18 = 1000000000000000000 wei = 1eth ..... If msg.value <1 then display the msg */
+        
+        //require(getConversionRate(msg.value) >= minimumUsd, "Didn't send enough"); //setting min limit
+        //Now getConversionRate is used on msg.value as a func of the library. "msg.value" acts as an object
+        require((msg.value.getConversionRate()) >= MINIMUM_USD, "Didn't send enough"); //setting min limit
+        funders.push(msg.sender); //the address which calls this fund function is msg.sender
+        addToAmtFunded[msg.sender] = msg.value;
+    }
+
+    
+//func to set the amt ,assigned to addresses(funders array) in addToAmtFunded mapping, to zero once the amt is withdrawn
+    function withdraw() public OnlyOwner{
+
+        /*require(msg.sender == i_owner, "withdrawer is not the owner");
+        Instead of the above require statement we can use the modifier OnlyOwner*/
+
+        for(uint funderindex = 0; funderindex < funders.length; funderindex++){
+            address funder = funders[funderindex];
+            addToAmtFunded[funder] = 0;
+        }
+
+    //reset the array to zero
+    funders = new address[](0); //funders is assigned to a new address array with 0 objects to start with
+
+    //Sending ETH from a contract
+    /* 3 diff ways to send ETH : 1) Transfer  2)SEND  3)Call */
+    //refer to Notes_4 in github for explanation of all 3
+
+    //payable(msg.sender).transfer(address(this).balance);
+
+    /*bool sendSuccess = payable(msg.sender).send(address(this).balance);
+    require(sendSuccess, "Send failed"); */
+
+    (bool callSuccess, ) = payable(msg.sender).call{value : address(this).balance}("");
+    require(callSuccess, "Call failed"); // only using this method for now to send eth
+    revert();
+    }
+
+    modifier OnlyOwner{
+        //require(msg.sender == i_owner, "msg.sender is not the owner"); modifying this line using Custom error
+        if(msg.sender != i_owner){
+            revert NotOwner() ;}
+        _; 
+    } //refer Notes_4
+
+    //What is someone sends ETH without calling the fund func?
+    //3 out of many special funcs in Solidity : receive, fallback and constructor 
+
+    receive() external payable {
+        fund();
+    }
+
+    fallback() external payable{
+        fund();
+    }
+
+    /* Whats happening? 
+    When someone sends eth say via metamask to the address of this function rather than using the
+    fund function, the receive/fallback(depending on the case) func gets triggered which in turn 
+    automatically executes the fund func and updates the funders array with the address which sent the 
+    eth. Since, we WANT the fund func to be executed at any cost , hence we are making sure it gets 
+    triggered even if the user doesnt do it himself.
+    */
+
+
+}
+
+...........................................................xxxx...................................................................................
+
+
+REceive.sol
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Receiveexample{
+    uint256 public result;
+    receive() external payable {
+        result = 1;
+    }
+
+    fallback() external payable{
+        result = 2;
+    } /*Now when we transact only calldata and no eth then fallback func
+    is executed */
+}
