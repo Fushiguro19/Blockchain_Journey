@@ -1,0 +1,15 @@
+------------------------------------------------------- ETHERS.JS------------------------------------------------------------------
+
+Ethers.js is a library to interact with Ethereum and its environment.
+yarn add ethers  //to install ether in wsl environment
+
+The require() statement is used to add the ethers library. It works similar to the import() except for some differences.
+
+The Blockchain providers provide nodes on blockchain for our projects. They help us connect with the blockchain and mnanage our nodes too.
+
+yarn add fs-extra : to install package fs to read from files
+import using require() statement.
+
+One Block Confirmation : Confirmation is the time elapsed between a blockchain transaction is submitted to a network and the time it is fully confirmed into a 
+                         block. One Block Confirmation means the transaction is fully confirmed to a block only when another block is confirmed on top of it.
+                         That is, the txn is submitted, a block is confirmed on top of it, then the txn is confirmed as a block.
