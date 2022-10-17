@@ -50,3 +50,4 @@ Modifiers : To execute some condition before reading the func body
             Then it means that read the modifier first and then the rest of the code. IF the dash i.e. _; comes before the require statement in the modifier
             then the func code will be read first and then the modifier will be read.
 
+REQUIRE vs REVERT vs ASSERT : https://medium.com/blockchannel/the-use-of-revert-assert-and-require-in-solidity-and-the-new-revert-opcode-in-the-evm-1a3a7990e06e
