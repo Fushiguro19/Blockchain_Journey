@@ -3,6 +3,11 @@ pragma solidity 0.8.7;
 
 contract learningsolidity{
     uint public myUint; //a state variable whose data remains on the blockchain permanently
+    
+    /*When we set the state variables as public, we get that blue button after deploying that lets us view the variable's value without writing any extra
+    view func for it. This is because as soon as we declare it public, a getter func gets associated with the variable which lets us view it automatically.
+    Otherwise, if not declared public, the default state is "internal". */
+    
     uint public constant MY_UINT = 123; //constant/immutable have less gas cost than normal variables 
 
     function HelloWorld() public pure returns(string memory) {
