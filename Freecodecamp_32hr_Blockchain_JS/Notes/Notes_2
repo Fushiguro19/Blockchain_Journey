@@ -17,7 +17,10 @@ Storage : Analogous to hard drive, stores data between smart contract executions
 MEMORY : Analogous to RAM, stores value only till function execution, gas consumption insignificant as compared to the storage, 
          always better to use Memory for intermediate calculations and store the final result in Storage, 4 32-byte slots including endpoints, 
          
-CALLDATA : temporary like MEMORY except that any variable defined as calldata is non-modifiable, it is a special data location where func args exist
+CALLDATA : temporary like MEMORY except that any variable defined as calldata is non-modifiable, it is a special data location where func args exist. A calldata
+           variable is defined only as function parameter and that too of an "external" specified function. The value of such parameters r usually provided by 
+           the caller. 
+           https://ethereum.stackexchange.com/questions/74442/when-should-i-use-calldata-and-when-should-i-use-memory
 
 1) State variables and Local Variables of structs, array are always stored in storage by default.
 2) Function arguments are in memory.
