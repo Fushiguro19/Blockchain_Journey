@@ -13,6 +13,9 @@ contract learningsolidity{
     function HelloWorld() public pure returns(string memory) {
         return("HelloWorld");
     }
+    
+    //It is not possible to return values from function which are not view/pure i.e. which modify the blockchain. You can use Events in case of state changing
+    //functions.
 
     function ValueTypes() public pure returns(bool, uint,int,int,int,address){
         bool b = true; /*these all are local variables (not state variables) hence will be removed 
