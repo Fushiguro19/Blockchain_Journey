@@ -1,0 +1,21 @@
+When the solidity code, say written in Remix IDE, is compiled, it breaks down into 2 parts : Bytecode and ABI.
+Bytecode is an executable code(low level language) on EVM while ABI (Application Binary Interface) is the interface required to interact with the bytecode. 
+ABI is usually an interface between an OS and user program. In Ethereum, ABI facilitates calling functions in a smart contract and get data back.
+Opcodes : Operation Codes that define operations run on the data like Read, Write etc written in human-readable low level language
+
+https://medium.com/@eiki1212/explaining-ethereum-contract-abi-evm-bytecode-6afa6e917c3b#:~:text=In%20Ethereum%2C%20Contract%20ABI%20is,contract%2Dto%2Dcontract%20interaction.
+
+Inline Assembly language is a way to access EVM at a lower level which is YUL cuurently . An inline assembly block is marked by assembly { ... }, where the 
+code inside the curly braces is code in the Yul language.
+
+https://jeancvllr.medium.com/solidity-tutorial-all-about-bytes-9d88fdb22676 : to understand how bytes memory is stored
+
+https://mirror.xyz/0xB38709B8198d147cc9Ff9C133838a044d78B064B/PpA5KdQhrE_2Bf-USfKePROJ5tE-raL7_VGBR8HE39E
+
+https://medium.com/authereum/bytecode-and-init-code-and-runtime-code-oh-my-7bcd89065904
+
+https://ethereum.stackexchange.com/questions/117334/bytecode-not-visible-for-deployed-contract
+
+When bytes are stored un memory , the first 32 bytes store the length of the data. 32 bytes form a "word". 0x0456fd......... , here, 04 form 1 byte, 56 form another
+1 byte and so on .... 32 bytes are formed.
+
