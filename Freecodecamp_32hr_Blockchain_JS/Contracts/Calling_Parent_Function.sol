@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.7;
+
+//Calling Parent function : 2 ways : direct and super
+
+contract E{
+    event Log(string message);
+    function foo() public virtual {
+        emit Log("emit E.foo");
+    }
+
+    function bar() public virtual {
+        emit Log("emit E.bar");
+    }
+}
+
+contract F is E{
+    function foo() public virtual override {
+        emit Log("emit F.foo");
+        E.foo(); //one way to call a parent function
+    }
+
+    function bar() public virtual override {
+        emit Log("emit F.bar");
+        super.bar(); //another way to call a parent function
+    }
+}
+
+contract G is E{
+    function foo() public virtual override {
+        emit Log("emit G.foo");
+        E.foo();
+    }
+
+    function bar() public virtual override {
+        emit Log("emit G.bar");
+        super.bar(); //another way to call a parent function
+    }
+}
+
+contract H is F,G{
+    function foo() public override(F,G){
+        F.foo();
+    }
+
+    function bar() public override(F,G){
+        super.bar();
+    }
+    //F.foo(), which is the direct method, will only call function from contract F which in turn calls event from contract E
+    //super.bar() method will call the bar() function from all the parent contracts i.e. F, G and E.
+}
