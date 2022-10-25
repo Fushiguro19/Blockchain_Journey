@@ -34,7 +34,7 @@ contract G is E{
 
     function bar() public virtual override {
         emit Log("emit G.bar");
-        super.bar(); //another way to call a parent function
+        super.bar(); 
     }
 }
 
@@ -46,6 +46,9 @@ contract H is F,G{
     function bar() public override(F,G){
         super.bar();
     }
+    /* If we do not override the bar func here then compiler will throw error coz the bar func is 
+    declared in both the base functions of this contract, hence it is mandatory to declare it here as well.
+    But, in case we don't want to , we can declare this func as abstract*/
     //F.foo(), which is the direct method, will only call function from contract F which in turn calls event from contract E
     //super.bar() method will call the bar() function from all the parent contracts i.e. F, G and E.
 }
