@@ -18,7 +18,7 @@ contract F is E{
     function foo() public virtual override {
         emit Log("emit F.foo");
         E.foo(); //one way to call a parent function
-    }
+    } //event of parent contract can be called from child contract only when it is wrapped inside a func like u can see we did here ....
 
     function bar() public virtual override {
         emit Log("emit F.bar");
