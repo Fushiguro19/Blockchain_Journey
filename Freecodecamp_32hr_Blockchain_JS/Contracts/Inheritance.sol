@@ -3,7 +3,16 @@ pragma solidity 0.8.7;
 
 //Inheritance is use data of one contract in another
 //One way is to copy the code from contract A to B and then customize it as per our wish and use it
-//Other way it to write import "./ContractA.sol";
+//Other way it to write import "./ContractA.sol" when contract A file is separately stored; Using import deploys both contracts on the same address
+
+//....................................................... IMPORTANT ...............................................................
+/*Inheritance vs Import : Import allows to use another object/file only by creating its instance first. Also we can use the functions/variables/methods etc
+of the imported file as it is without modifying. You cannot use the func/methods of the inherited file on the inheritor file's data. They can only be used on
+the inherited file's data. We r basically calling those functions as it is and not using them in our own file.
+Inheritance copies everything from the parent class into child class with the freedom of modifying them 
+and there is no need of creating its instance first. We use those functions on our own data. */
+// ............................................................XXXX.....................................................................
+
 //Contract A will be parent and B will be the child contract inheriting from A
 //Functions of the parent contract that will be modified/overridden when inherited in the child contract needs to be declared as virtual in the parent contract and override in the child contract
 
