@@ -24,11 +24,11 @@ contract A{
 //Child contract B
 pragma solidity 0.8.7;
 
-import "./Inheritance.sol";
+//import "./Inheritance.sol"; .....when u want all variables, func etc data to be accessible in contract B as well
 
 contract B is A{
 
-    function setA() public pure override returns(string memory ) {
+    function setA() public pure virtual override returns(string memory ) {
         return "Overridden";
     }
     //This inherits all the functions of contract A from Inheritance.sol
@@ -36,4 +36,22 @@ contract B is A{
     //since function setA2() from contract A is not virtual , we cannot modify it but we can still use it in this contract
     
 
+}
+
+// MULTIPLE INHERITANCE .................
+//Inheriting from multiple contracts
+//Go in the order from the parent class to the derived class
+//Lets say A is parent, B derives from A and C derives from both A & B
+//then order of inheritance will be A -> B -> C
+//https://www.youtube.com/watch?v=ITxPOG9Djwc&list=PLO5VPQH6OWdVQwpQfw9rZ67O6Pjfo6q-p&index=32&ab_channel=SmartContractProgrammer
+
+//https://docs.soliditylang.org/en/v0.8.16/contracts.html#inheritance
+
+
+ //Multiple Inheritance : SPecify contracts in order
+ //For overriding, mentioning the contracts is necessary but the order isn't
+contract C is A,B{
+    function setA() public pure override(A,B) returns(string memory ) {
+        return "C";
+    }
 }
