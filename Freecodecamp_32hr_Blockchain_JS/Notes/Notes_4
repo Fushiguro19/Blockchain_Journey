@@ -9,7 +9,8 @@ Three ways to send ether from a contract :
     address(this) refers to the address of this contract and .balance method gives the total ETh balance
     in this contract. Overall, we r sending the amount this contract has to the msg.sender address via transfer
     method//
-    The limitation of transfer method is that it is capped at 2300gas. WHich means if more than 2300 gas is used while sending eth it will throw an error and
+    The limitation of transfer method is that it is capped at 2300gas. WHich means 2300 gas will be available to execute the receiving of ether in the 
+    receiver contract, if more than 2300 is required then it will throw an error and
     revert the transaction. This method is basically used to send native currency within contracts in the same blockchain network i.e. 
     sending ether within contracts in the Ethereum network. 
     Transfer automatically reverts the transaction. It doesn't need a require statement, like send and call function do, to revert a transaction if it fails.
@@ -37,6 +38,12 @@ Three ways to send ether from a contract :
           abi.encodeWithSignature is done to encode the func to be called.
           value is in wei.
           refer : https://www.youtube.com/watch?v=xIAs2S9aCKo&list=PLO5VPQH6OWdVQwpQfw9rZ67O6Pjfo6q-p&index=44&ab_channel=SmartContractProgrammer
+          
+ Why is gas forwarded/sent with ether via above 3 ways??? It is because this gas is used to execute the receiver contract's fallback/receiver function.
+ Transfer and send has a limit of 2300 gas while call() can forward all the available gas.
+ https://ethereum.stackexchange.com/questions/127435/why-is-gas-transferred-while-transferring-eth
+ 
+ https://ethereum.org/en/developers/docs/gas/
           
 
 Modifiers : To execute some condition before reading the func body
