@@ -1,6 +1,6 @@
-With some modifications nd new concepts than the earlier one :
-
 //SPDX-License-Identifier: MIT
+
+//With some modifications nd new concepts than the earlier one :
 
 /* 1) Tasks : get(from users)/withdraw funds ; set min funding value 
 in USD
