@@ -22,7 +22,8 @@ Three ways to send ether from a contract :
          if returns FALSE, then the transaction will be reverted with a msg "Send failed" , hence reverting our money back otherwise no money revert will happen.//
          
          
-3) CALL : This is a powerful func which can be used to call almost any func virtually in all of the etherium without even using ABI.
+3) CALL : This is a powerful func which can be used to call almost any func virtually in all of the etherium without even using ABI. It has no limitation of
+          2300 gas like transfer/send functions. 
           1) To send ETH :
           (bool callSuccess) = payable(msg.sender).call{value : address(this).balance}("");
           require(callSuccess, "Call failed");
