@@ -10,7 +10,7 @@ Three ways to send ether from a contract :
     in this contract. Overall, we r sending the amount this contract has to the msg.sender address via transfer
     method//
     The limitation of transfer method is that it is capped at 2300gas. WHich means if more than 2300 gas is used while sending eth it will throw an error and
-    revert the transaction.
+    revert the transaction. This method is basically used to send native currency within contracts in the same blockchain network i.e. sending ether within contracts in the Ethereum network.
     
 2) SEND : Here, if 2300 gas is exceeded, then it will return a BOOL.
          bool sendSuccess = payable(msg.sender).send(address(this).balance);
