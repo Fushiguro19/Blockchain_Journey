@@ -14,7 +14,7 @@ contract Wallet{
         owner = payable(msg.sender);
     }
 
-    receive() external payable {} //to deposit ether after the contract is deployed
+    receive() external payable {} //to deposit ether after the contract is deployed or receive ether from any other contract
     
     //withdraw function for the owner to withdraw amount 
     //from this contract to their own address
