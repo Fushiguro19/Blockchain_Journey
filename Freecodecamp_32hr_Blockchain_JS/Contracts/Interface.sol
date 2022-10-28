@@ -4,6 +4,8 @@ pragma solidity 0.8.7;
 //Interfaces are used to access contract whose code we don't know OR
 //the contract is not on the same file OR we don't wanna copy the whole code and
 //just wanna use a few functions of it
+//Interfaces are just like ABI of a contract ... if u would convert ABI to interface , no data would be lost 
+//https://medium.com/upstate-interactive/solidity-how-to-know-when-to-use-abstract-contracts-vs-interfaces-874cab860c56
 
 //We will be using Counter.sol deployed separately
 //Pasting its code here just for reference
