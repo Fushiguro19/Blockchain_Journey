@@ -33,11 +33,6 @@ contract Caller {
         emit Log(success, data);
     }
 
-
-.................................................................xxxxxxxxxxxxxx.................................................................
-One doubt I had during this code was : Till now we used TestContract(_address).method() to access functions of a contract but this time we directly used
-_address.call() ........... this is because in former scenario we were directly calling the function of a contract while in the latter we are calling
-the function using call() method.
     // Calling a function that does not exist triggers the fallback function.
     function testCallDoesNotExist(address _addr) public {
         (bool success, bytes memory data) = _addr.call(
@@ -48,3 +43,8 @@ the function using call() method.
         emit Log(success, data);
     }
 }
+
+.................................................................xxxxxxxxxxxxxx.................................................................
+One doubt I had during this code was : Till now we used TestContract(_address).method() to access functions of a contract but this time we directly used
+_address.call() ........... this is because in former scenario we were directly calling the function of a contract while in the latter we are calling
+the function using call() method.
