@@ -28,6 +28,7 @@ contract Caller {
         (bool success, bytes memory data) = _addr.call{value: msg.value}(
             abi.encodeWithSignature("foo(string,uint256)", "call foo", 123)
         );
+        //very imp to write uint256 here instead of just uint....wasn't compiling when it was just uint coz abi encoding needs precise info
         require(success, "failed");
 
         emit Log(success, data);
